@@ -43,7 +43,9 @@
             <el-col :span="10">
                 <el-card>
                     <template #header>支出分类</template>
-                    <div class="chart-placeholder">饼图（待实现）</div>
+                    <div class="chart-placeholder">
+                        <div class="chart-container" ref="pieChartRef"></div>
+                    </div>
                 </el-card>
             </el-col>
         </el-row>
@@ -61,6 +63,8 @@ import { computed, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 import { useBillsStore } from '@/stores/bills'
 import { formatAmount, getCurrentMonth } from '@/utils/format'
+import { useCategoriesStore } from '@/stores/categories'
+const categoriesStore = useCategoriesStore()
 
 
 const billsStore = useBillsStore()
@@ -126,6 +130,60 @@ const initLineChart = () => {
     }
     lineChart.setOption(option)
 }
+
+// 饼图相关
+const pieChartRef = ref<HTMLElement | null>(null)
+let pieChart: echarts.ECharts | null = null
+
+// 计算本月各分类支出
+const getCategoryExpenseData = () => {
+    // 筛选本月支出
+    const expenseBills = monthlyBills.value.filter(b => b.type === 'expense')
+
+    // 按分类汇总
+    const categoryMap: Record<string, number> = {}  // Ts类型，键是字符串，值是数字的对象
+    expenseBills.forEach(bill => {
+        if (categoryMap[bill.categoryId]) {
+            categoryMap[bill.categoryId] += bill.amount
+        } else {
+            categoryMap[bill.categoryId] = bill.amount
+        }
+    })
+
+    // 转换成饼图需要的格式 [{ name: '餐饮', value: 500 }, ...]
+    const data = Object.keys(categoryMap).map(categoryId => {   // 获取对象的所有键（分类 ID）
+        const category = categoriesStore.getCategoryById(categoryId)
+        return {
+            name: category?.name || '未知',
+            value: categoryMap[categoryId]
+        }
+    })
+
+    return data
+}
+
+// 初始化饼图
+const initPieChart = () => {
+    if (!pieChartRef.value) return
+
+    pieChart = echarts.init(pieChartRef.value)
+    const data = getCategoryExpenseData()
+
+    const option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}:￥{c} ({d}%)' // 分类名：￥金额（占比%）  {d}%	ECharts 内置变量，表示占比百分比
+        },
+        series: [{
+            type: 'pie',
+            radius: ['40%', '70%'], // 内外半径，形成环形
+            data: data,
+            label: { formatter: '{b}\n{d}%' }   // 标签显示
+        }]
+    }
+    pieChart.setOption(option)
+}
+
 // 本月收入
 const monthlyIncome = computed(() => {
     return monthlyBills.value
@@ -152,9 +210,11 @@ const totalAssets = computed(() => {
 
 onMounted(() => {
     initLineChart()
+    initPieChart()
 })
 onUnmounted(() => {
     lineChart?.dispose()
+    pieChart?.dispose()
 })
 </script>
 
