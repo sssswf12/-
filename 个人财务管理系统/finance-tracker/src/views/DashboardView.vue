@@ -53,7 +53,26 @@
         <!-- 最近交易（待实现） -->
         <el-card class="recent-section">
             <template #header>最近交易</template>
-            <div>交易列表（待实现）</div>
+            <el-table :data="recentBills" stripe>
+                <el-table-column prop="date" label="日期" width="120" />
+                <el-table-column label="类型" width="80">
+                    <template #default="{ row }"><el-tag :type="row.type === 'income' ? 'success' : 'danger'"
+                            size="small">{{ row.type === 'income' ? '收入' : '支出' }}</el-tag></template>
+                </el-table-column>
+                <el-table-column label="分类" width="100">
+                    <template #default="{ row }">
+                        <!-- 插槽语法，row 是当前行的数据 -->
+                        {{ getCategoryName(row.categoryId) }}
+                    </template>
+                </el-table-column>
+                <el-table-column label="金额" width="120">
+                    <template #default="{ row }">
+                        <!-- :style="{ color: ... }"	动态绑定样式 -->
+                        <span :style="{ color: row.type === 'income' ? '#67c23a' : '#f56c6c' }">{{
+                            row.type === 'income' ? '+' : '-' }}{{ formatAmount(row.amount) }}</span></template>
+                </el-table-column>
+                <el-table-column prop="note" label="备注" />
+            </el-table>
         </el-card>
     </div>
 </template>
@@ -184,6 +203,16 @@ const initPieChart = () => {
     pieChart.setOption(option)
 }
 
+//最近交易 取最近五条账单
+const recentBills = computed(() => {
+    return billsStore.sortedBills.slice(0, 5)
+})
+
+// 根据分类ID获取分类名称
+const getCategoryName = (categoryId: string) => {
+    const category = categoriesStore.getCategoryById(categoryId)
+    return category?.name || '未知'
+}
 // 本月收入
 const monthlyIncome = computed(() => {
     return monthlyBills.value
