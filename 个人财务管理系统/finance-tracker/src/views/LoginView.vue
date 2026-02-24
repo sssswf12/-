@@ -98,28 +98,31 @@ const handleLogin = async () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* 不需要单独设背景，body 的渐变背景已经有了 */
 }
 
 .login-box {
     width: 400px;
     padding: 40px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
 }
 
 .login-title {
     text-align: center;
     margin: 0 0 8px 0;
-    color: #333;
+    color: var(--text-white);
     font-size: 28px;
 }
 
 .login-subtitle {
     text-align: center;
     margin: 0 0 30px 0;
-    color: #999;
+    color: var(--text-secondary);
     font-size: 14px;
 }
 
@@ -129,12 +132,19 @@ const handleLogin = async () => {
 
 .login-btn {
     width: 100%;
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+.login-btn:hover {
+    background-color: var(--accent-hover) !important;
+    border-color: var(--accent-hover) !important;
 }
 
 .login-tip {
     text-align: center;
     margin-top: 20px;
-    color: #999;
+    color: var(--text-secondary);
     font-size: 12px;
 }
 </style>
