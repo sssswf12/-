@@ -6,7 +6,8 @@
 //  (?!\d)    // 后面不能跟着数字（确保匹配到整数部分的结尾）
 //)
 export function formatAmount(amount: number): string {
-    return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')  // 正则表达式，每 3 位数字加一个逗号（千分位）  .toFixed(2)将数字转换为字符串并且保留两位小数
+    const num = amount || 0
+    return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')  // 正则表达式，每 3 位数字加一个逗号（千分位）  .toFixed(2)将数字转换为字符串并且保留两位小数
 }
 
 // 格式化金额带符号
