@@ -4,10 +4,207 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* 深紫蓝渐变，135deg是从左上到右下的角度，三个颜色过度 */
+    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    /* 毛玻璃核心：让卡片稍微透光，0.08就是8%的透明度的白色 */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    /* 12%白色边框，给玻璃加一圈微光边缘 */
+    --glass-border: rgba(255, 255, 255, 0.12);
+    /* 模糊效果，值越大越磨砂 */
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --glass-blur: blur(12px);
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-white: #ffffff;
+    /* 紫色主色调，用于按钮，高亮，链接 */
+    --accent-color: #7c5cfc;
+    --accent-hover: #9b7fff;
+    --danger-color: #f56c6c;
+    --success-color: #52c41a;
+    --warning-color: #e6a23c;
+}
+
 html,
 body,
 #app {
     width: 100%;
     height: 100%;
     font-family: 'Microsoft YaHei', sans-serif;
+    color: var(--text-primary)
+}
+
+body {
+    background: var(--bg-gradient);
+    /* 背景固定不滚动，这样内容滚动时背景不跟着动 */
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.el-card {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+    color: var(--text-primary);
+    border-radius: 12px !important;
+}
+
+.el-card__header {
+    border-bottom: 1px solid var(--glass-border) !important;
+    color: var(--text-white);
+}
+
+/* 输入框：暗色透明底 */
+.el-input__wrapper,
+.el-textarea__inner {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: var(--glass-border) !important;
+    box-shadow: none !important;
+    color: var(--text-primary) !important;
+}
+
+.el-input__inner {
+    color: var(--text-primary) !important;
+}
+
+/* 数字输入框 */
+.el-input-number .el-input__wrapper {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* 表格：暗色透明 */
+.el-table {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+}
+
+.el-table tr {
+    background-color: transparent !important;
+}
+
+.el-table th.el-table__cell {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    color: var(--text-white) !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+}
+
+.el-table td.el-table__cell {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* 表格 hover 行高亮 */
+.el-table--enable-row-hover .el-table__body tr:hover>td {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* 弹窗：毛玻璃 */
+.el-dialog {
+    background: rgba(30, 30, 60, 0.85) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+.el-dialog__header {
+    color: var(--text-white);
+}
+
+.el-dialog__title {
+    color: var(--text-white) !important;
+}
+
+.el-dialog__body {
+    color: var(--text-primary);
+}
+
+/* 主色按钮：紫色 */
+.el-button--primary {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+.el-button--primary:hover {
+    background-color: var(--accent-hover) !important;
+    border-color: var(--accent-hover) !important;
+}
+
+/* 默认按钮：透明底 */
+.el-button--default {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: var(--glass-border) !important;
+    color: var(--text-primary) !important;
+}
+
+/* 表单标签文字 */
+.el-form-item__label {
+    color: var(--text-secondary) !important;
+}
+
+/* 面包屑 */
+.el-breadcrumb__inner,
+.el-breadcrumb__separator {
+    color: var(--text-secondary) !important;
+}
+
+/* 分页 */
+.el-pagination {
+    --el-pagination-bg-color: transparent !important;
+    --el-pagination-text-color: var(--text-secondary) !important;
+    --el-pagination-button-disabled-bg-color: transparent !important;
+}
+
+.el-pager li {
+    background: transparent !important;
+    color: var(--text-secondary) !important;
+}
+
+.el-pager li.is-active {
+    color: var(--accent-color) !important;
+}
+
+/* 下拉框弹出层 */
+.el-select-dropdown {
+    background: rgba(30, 30, 60, 0.95) !important;
+    border: 1px solid var(--glass-border) !important;
+}
+
+.el-select-dropdown__item {
+    color: var(--text-primary) !important;
+}
+
+.el-select-dropdown__item.is-hovering {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 标签页 Tabs */
+.el-tabs__item {
+    color: var(--text-secondary) !important;
+}
+
+.el-tabs__item.is-active {
+    color: var(--accent-color) !important;
+}
+
+.el-tabs__active-bar {
+    background-color: var(--accent-color) !important;
+}
+
+/* 侧边栏菜单 hover */
+.el-menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 分割线 */
+.el-divider__text {
+    background-color: transparent !important;
+    color: var(--text-secondary) !important;
+}
+
+/* 日期选择器弹出层 */
+.el-date-editor .el-input__wrapper {
+    background-color: rgba(255, 255, 255, 0.06) !important;
 }

@@ -6,8 +6,8 @@
                 <h2 v-show="!isCollapse">Finance Tracker</h2>
                 <h2 v-show="isCollapse">FT</h2>
             </div>
-            <el-menu :default-active="activeMenu" :collapse="isCollapse" router background-color="#304156"
-                text-color="#bfcbd9" active-text-color="#409eff">
+            <el-menu :default-active="activeMenu" :collapse="isCollapse" router background-color="transparent"
+                text-color="var(--text-secondary)" active-text-color="var(--text-white)">
                 <el-menu-item index="/dashboard">
                     <el-icon>
                         <DataLine />
@@ -130,7 +130,10 @@ const handleLogout = () => {
 }
 
 .layout-aside {
-    background-color: #304156;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-right: 1px solid var(--glass-border);
     overflow-y: auto;
     transition: width 0.3s;
 }
@@ -140,7 +143,8 @@ const handleLogout = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--text-white);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .logo h2 {
@@ -149,9 +153,12 @@ const handleLogout = () => {
     white-space: nowrap;
 }
 
+/* 顶部栏：毛玻璃 */
 .layout-header {
-    background-color: #fff;
-    border-bottom: 1px solid #e6e6e6;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -167,11 +174,11 @@ const handleLogout = () => {
 .collapse-btn {
     font-size: 20px;
     cursor: pointer;
-    color: #333;
+    color: var(--text-secondary);
 }
 
 .collapse-btn:hover {
-    color: #409eff;
+    color: var(--accent-color);
 }
 
 .header-right {
@@ -188,15 +195,12 @@ const handleLogout = () => {
 
 .username {
     font-size: 14px;
-    color: #333;
+    color: var(--text-primary);
 }
 
+/* 主内容区：透明背景，让渐变透出来 */
 .layout-main {
-    background-color: #f0f2f5;
-}
-
-/* 菜单折叠时隐藏文字 */
-.el-menu--collapse .el-menu-item span {
-    display: none;
+    background: transparent;
+    padding: 20px;
 }
 </style>
