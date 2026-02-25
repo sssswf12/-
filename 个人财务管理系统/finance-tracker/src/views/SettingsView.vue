@@ -19,14 +19,14 @@
         </el-card>
         <el-card style="margin-top: 16px;">
             <template #header>数据管理</template>
-            <p style="color: #666; margin-bottom: 16px;">将所有数据导出为JSON文件，可用于备份</p>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">将所有数据导出为JSON文件，可用于备份</p>
             <el-button type="success" @click="handleExport">导出数据</el-button>
         </el-card>
         <el-card style="margin-top: 16px;">
             <template #header>
                 <span style="color:#f56c6c">危险操作</span>
             </template>
-            <p style="color: #666; margin-bottom: 16px;">清空后所有账单、分类、预算数据将不可恢复</p>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">清空后所有账单、分类、预算数据将不可恢复</p>
             <el-button type="danger" @click="handleClearData">清空所有数据</el-button>
         </el-card>
     </div>

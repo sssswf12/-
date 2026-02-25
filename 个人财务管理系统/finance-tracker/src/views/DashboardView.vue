@@ -135,15 +135,24 @@ const initLineChart = () => {
     const { months, incomeData, expenseData } = getMonthlyData()
 
     const option = {
-        tooltip: { trigger: 'axis' },   // 鼠标悬停提示
-        legend: { data: ['收入', '支出'] }, // 图例
-        xAxis: {    // x轴配置
-            type: 'category',
-            data: months.map(m => m.slice(5) + '月') // 2026-02 -> 02月
+        tooltip: { trigger: 'axis' },
+        legend: {
+            data: ['收入', '支出'],
+            textStyle: { color: '#e0e0e0' }
         },
-        yAxis: { type: 'value' },   // y轴配置
-        series: [   // 数据系列
-            { name: '收入', type: 'line', data: incomeData, itemStyle: { color: '#67c23a' } },
+        xAxis: {
+            type: 'category',
+            data: months.map(m => m.slice(5) + '月'),
+            axisLabel: { color: '#a0a0a0' },
+            axisLine: { lineStyle: { color: '#a0a0a0' } }
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: { color: '#a0a0a0' },
+            splitLine: { lineStyle: { color: 'rgba(255,255,255,0.08)' } }
+        },
+        series: [
+            { name: '收入', type: 'line', data: incomeData, itemStyle: { color: '#52c41a' } },
             { name: '支出', type: 'line', data: expenseData, itemStyle: { color: '#f56c6c' } }
         ]
     }
@@ -191,13 +200,16 @@ const initPieChart = () => {
     const option = {
         tooltip: {
             trigger: 'item',
-            formatter: '{b}:￥{c} ({d}%)' // 分类名：￥金额（占比%）  {d}%	ECharts 内置变量，表示占比百分比
+            formatter: '{b}:￥{c} ({d}%)'
         },
         series: [{
             type: 'pie',
-            radius: ['40%', '70%'], // 内外半径，形成环形
+            radius: ['40%', '70%'],
             data: data,
-            label: { formatter: '{b}\n{d}%' }   // 标签显示
+            label: {
+                formatter: '{b}\n{d}%',
+                color: '#e0e0e0'
+            }
         }]
     }
     pieChart.setOption(option)
@@ -259,7 +271,7 @@ onUnmounted(() => {
 
 .stat-title {
     font-size: 14px;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 8px;
 }
 
@@ -269,19 +281,19 @@ onUnmounted(() => {
 }
 
 .stat-card.income .stat-value {
-    color: #67c23a;
+    color: var(--success-color);
 }
 
 .stat-card.expense .stat-value {
-    color: #f56c6c;
+    color: var(--danger-color);
 }
 
 .stat-card.balance .stat-value {
-    color: #409eff;
+    color: var(--accent-color);
 }
 
 .stat-card.total .stat-value {
-    color: #e6a23c;
+    color: var(--warning-color);
 }
 
 .chart-section {

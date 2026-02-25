@@ -125,8 +125,8 @@ const handleDelete = (id: string) => {
 .category-card {
     width: 200px;
     padding: 16px;
-    background: #fff;
-    border: 1px solid #e4e7ed;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     border-radius: 8px;
     display: flex;
     flex-direction: column;

@@ -125,16 +125,23 @@ const updateBarChart = () => {
 
     const option = {
         tooltip: { trigger: 'axis' },
-        legend: { data: ['收入', '支出'] },
+        legend: {
+            data: ['收入', '支出'],
+            textStyle: { color: '#e0e0e0' }
+        },
         xAxis: {
             type: 'category',
-            data: days
+            data: days,
+            axisLabel: { color: '#a0a0a0' },
+            axisLine: { lineStyle: { color: '#a0a0a0' } }
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLabel: { color: '#a0a0a0' },
+            splitLine: { lineStyle: { color: 'rgba(255,255,255,0.08)' } }
         },
         series: [
-            { name: '收入', type: 'bar', data: incomeData, itemStyle: { color: '#67c23a' } },
+            { name: '收入', type: 'bar', data: incomeData, itemStyle: { color: '#52c41a' } },
             { name: '支出', type: 'bar', data: expenseData, itemStyle: { color: '#f56c6c' } }
         ]
     }
@@ -171,7 +178,7 @@ onUnmounted(() => {
 
 .stat-title {
     font-size: 14px;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 8px;
 }
 
@@ -181,15 +188,15 @@ onUnmounted(() => {
 }
 
 .stat-value.income {
-    color: #67c23a;
+    color: var(--success-color);
 }
 
 .stat-value.expense {
-    color: #f56c6c;
+    color: var(--danger-color);
 }
 
 .stat-value.balance {
-    color: #409eff;
+    color: var(--accent-color);
 }
 
 .chart-card {

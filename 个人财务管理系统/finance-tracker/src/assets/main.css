@@ -6,11 +6,9 @@
 
 :root {
     /* 深紫蓝渐变，135deg是从左上到右下的角度，三个颜色过度 */
-    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    /* 毛玻璃核心：让卡片稍微透光，0.08就是8%的透明度的白色 */
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    /* 12%白色边框，给玻璃加一圈微光边缘 */
-    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --bg-gradient: linear-gradient(135deg, #0a0a1a, #1a1040, #0d1b3e);
     /* 模糊效果，值越大越磨砂 */
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     --glass-blur: blur(12px);
@@ -82,6 +80,10 @@ body {
 
 .el-table tr {
     background-color: transparent !important;
+}
+
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+    background-color: rgba(255, 255, 255, 0.04) !important;
 }
 
 .el-table th.el-table__cell {
@@ -207,4 +209,12 @@ body {
 /* 日期选择器弹出层 */
 .el-date-editor .el-input__wrapper {
     background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.el-table__empty-block {
+    background-color: transparent !important;
+}
+
+.el-table__body-wrapper {
+    background-color: transparent !important;
 }
