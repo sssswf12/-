@@ -3,25 +3,25 @@
         <!-- 统计卡片区域 -->
         <!-- :gutter="16"	列之间的间距 16px -->
         <el-row :gutter="16" class="stat-cards">
-            <el-col :span="6">
+            <el-col :xs="12" :sm="12" :md="6">
                 <el-card class="stat-card income">
                     <div class="stat-title">本月收入</div>
                     <div class="stat-value">{{ formatAmount(monthlyIncome) }}</div>
                 </el-card>
             </el-col>
-            <el-col :span="6">
+            <el-col :xs="12" :sm="12" :md="6">
                 <el-card class="stat-card expense">
                     <div class="stat-title">本月支出</div>
                     <div class="stat-value">{{ formatAmount(monthlyExpense) }}</div>
                 </el-card>
             </el-col>
-            <el-col :span="6">
+            <el-col :xs="12" :sm="12" :md="6">
                 <el-card class="stat-card balance">
                     <div class="stat-title">本月结余</div>
                     <div class="stat-value">{{ formatAmount(monthlyBalance) }}</div>
                 </el-card>
             </el-col>
-            <el-col :span="6">
+            <el-col :xs="12" :sm="12" :md="6">
                 <el-card class="stat-card total">
                     <div class="stat-title">总资产</div>
                     <div class="stat-value">{{ formatAmount(totalAssets) }}</div>
@@ -31,7 +31,7 @@
 
         <!-- 图表区域（待实现） -->
         <el-row :gutter="16" class="chart-section">
-            <el-col :span="14">
+            <el-col :xs="24" :sm="24" :md="14">
                 <el-card>
                     <!-- template #header	el-card 的具名插槽，自定义卡片头部 -->
                     <template #header>收支趋势</template>
@@ -40,7 +40,7 @@
                     </div>
                 </el-card>
             </el-col>
-            <el-col :span="10">
+            <el-col :xs="24" :sm="24" :md="10">
                 <el-card>
                     <template #header>支出分类</template>
                     <div class="chart-placeholder">
@@ -249,11 +249,18 @@ const totalAssets = computed(() => {
     return billsStore.totalIncome - billsStore.totalExpense
 })
 
+// 自适应
+const handleResize = () => {
+    lineChart?.resize()
+    pieChart?.resize()
+}
 onMounted(() => {
     initLineChart()
     initPieChart()
+    window.addEventListener('resize', handleResize)
 })
 onUnmounted(() => {
+    window.removeEventListener('resize', handleResize)
     lineChart?.dispose()
     pieChart?.dispose()
 })

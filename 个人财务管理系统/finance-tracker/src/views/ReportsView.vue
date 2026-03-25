@@ -17,17 +17,17 @@
         </el-card>
         <!-- 统计卡片 -->
         <el-row :gutter="16" class="stat-cards">
-            <el-col :span="8">
+            <el-col :xs="24" :sm="8">
                 <el-card class="stat-card">
                     <div class="stat-title">月收入</div>
-                    <div class="stat-value value">￥{{ formatAmount(monthlyIncome) }}</div>
+                    <div class="stat-value income">￥{{ formatAmount(monthlyIncome) }}</div>
                 </el-card>
             </el-col>
-            <el-col :span="8"><el-card class="stat-card">
+            <el-col :xs="24" :sm="8"><el-card class="stat-card">
                     <div class="stat-title">月支出</div>
                     <div class="stat-value expense">￥{{ formatAmount(monthlyExpense) }}</div>
                 </el-card></el-col>
-            <el-col :span="8">
+            <el-col :xs="24" :sm="8">
                 <el-card class="stat-card">
                     <div class="stat-title">月结余</div>
                     <div class="stat-value balance">￥{{ formatAmount(monthlyBalance) }}</div>
@@ -84,7 +84,7 @@ const monthlyBalance = computed(() => {
 
 // 柱状图相关
 const barChartRef = ref<HTMLElement | null>(null)
-let barChart: echarts.Echarts | null = null
+let barChart: echarts.ECharts | null = null
 
 // 获取该月每日数据
 const getDailyData = () => {
@@ -153,13 +153,19 @@ watch(selectMonth, () => {
     updateBarChart()
 })
 
+// 自适应
+const handleResize = () => {
+    barChart?.resize()
+}
 // 生命周期
 onMounted(() => {
     updateBarChart()
+    window.addEventListener('resize', handleResize)
 })
 
 onUnmounted(() => {
     barChart?.dispose()
+    window.removeEventListener('resize', handleResize)
 })
 </script>
 

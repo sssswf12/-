@@ -90,7 +90,7 @@ const handleClearData = () => {
         }
     ).then(() => {
         localStorage.removeItem('finance_tracker_bills')
-        localStorage.removeItem('finance_tracker_categoties')
+        localStorage.removeItem('finance_tracker_categories')
         localStorage.removeItem('finance_tracker_budgets')
         ElMessage.success('数据已清空')
     }).catch(() => {

@@ -10,8 +10,8 @@
     <div class="action-bar"><el-button type="primary" @click="openAddDialog">新增分类</el-button></div>
     <!-- 分类列表 -->
     <div class="category-list">
-        <div class="categoty-card" v-for="category in currentCategories" :key="category.id"><span
-                class="category-name">{{ category.name }}</span>
+        <div class="category-card" v-for="category in currentCategories" :key="category.id">
+            <span class="category-name">{{ category.name }}</span>
             <div class="category-actions"><el-button type="primary" link size="small"
                     @click="openEditDialog(category)">编辑</el-button><el-button v-if="!category.isDefault" type="danger"
                     link size="small" @click="handleDelete(category.id)">删除</el-button><el-tag v-else size="small"
@@ -123,7 +123,7 @@ const handleDelete = (id: string) => {
 }
 
 .category-card {
-    width: 200px;
+    width: 150px;
     padding: 16px;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -131,6 +131,8 @@ const handleDelete = (id: string) => {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    /* flex: 1 1 200px:flex-grow: 1（可以拉伸）、flex-shrink: 1（可以收缩）、flex-basis: 200px（基准宽度 200px） */
+    flex: 1 1 200px;
 }
 
 .category-name {

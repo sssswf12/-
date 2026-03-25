@@ -102,7 +102,7 @@ const handleLogin = async () => {
 }
 
 .login-box {
-    width: 400px;
+    width: 90%;
     padding: 40px;
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
@@ -110,6 +110,7 @@ const handleLogin = async () => {
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     box-shadow: var(--glass-shadow);
+    max-width: 400px;
 }
 
 .login-title {
